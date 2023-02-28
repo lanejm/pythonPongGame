@@ -116,3 +116,11 @@ turtle.onkeypress(paddle1_up, "w")
 turtle.onkeypress(paddle1_down, "s")
 turtle.onkeypress(paddle2_up, "Up")
 turtle.onkeypress(paddle2_down, "Down")
+
+# Game over screen
+game_over_display = turtle.Turtle()
+game_over_display.color("white")
+game_over_display.penup()
+game_over_display.hideturtle()
+game_over_display.goto(0, 0)
+game_over_display.write("Game Over! {} wins!".format(winner), align="center", font=("Arial", 36, "normal"))
