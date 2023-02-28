@@ -7,6 +7,7 @@ screen.bgcolor("green")
 screen.setup(width = 800, height = 600)
 screen.tracer(0)
 
+#soccer field layout
 def drawField():
 	draw = turtle.Turtle()
 	draw.penup()
