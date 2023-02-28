@@ -49,3 +49,70 @@ score_display.penup()
 score_display.hideturtle()
 score_display.goto(0, 260)
 score_display.write("Player 1: 0 Player 2: 0", align="center", font=("Arial", 24, "normal"))
+
+#game mechanics
+paddle1.sety(paddle1.ycor() + paddle1.dy)
+    paddle2.sety(paddle2.ycor() + paddle2.dy)
+    ball.setx(ball.xcor() + ball.dx)
+    ball.sety(ball.ycor() + ball.dy)
+
+    # Check for game over conditions
+    if points["player1"] == game_rules["max_points"]:
+        game_over = True
+        winner = "player1"
+    elif points["player2"] == game_rules["max_points"]:
+        game_over = True
+        winner = "player2"
+
+    # Check for ball collision with paddles
+    if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle2.ycor() + 50 and ball.ycor() > paddle2.ycor() - 50):
+        ball.setx(340)
+        ball.dx *= -1
+    elif (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle1.ycor() + 50 and ball.ycor() > paddle1.ycor() - 50):
+        ball.setx(-340)
+        ball.dx *= -1
+
+    # Check for ball going off screen
+    if ball.xcor() > 390:
+        ball.goto(0, 0)
+        ball.dx *= -1
+        points["player1"] += 1
+    elif ball.xcor() < -390:
+        ball.goto(0, 0)
+        ball.dx *= -1
+        points["player2"] += 1
+
+    # Check for ball colliding with top or bottom of screen
+    if ball.ycor() > 290:
+        ball.sety(290)
+        ball.dy *= -1
+    elif ball.ycor() < -290:
+        ball.sety(-290)
+        ball.dy *= -1
+
+    # Update score display
+    score_display.clear()
+    score_display.write("Player 1: {}  Player 2: {}".format(points["player1"], points["player2"]), align="center", font=("Arial", 24, "normal"))
+
+# Function to move paddle1 up
+def paddle1_up():
+    paddle1.dy = 10
+
+# Function to move paddle1 down
+def paddle1_down():
+    paddle1.dy = -10
+
+# Function to move paddle2 up
+def paddle2_up():
+    paddle2.dy = 10
+
+# Function to move paddle2 down
+def paddle2_down():
+    paddle2.dy = -10
+
+# Set up keyboard bindings
+turtle.listen()
+turtle.onkeypress(paddle1_up, "w")
+turtle.onkeypress(paddle1_down, "s")
+turtle.onkeypress(paddle2_up, "Up")
+turtle.onkeypress(paddle2_down, "Down")
