@@ -1,14 +1,7 @@
 import turtle
 
-#ball
-ball = turtle.Turtle()
-ball.shape("circle")
-ball.color("white")
-ball.penup()
-ball.goto(0, 0)
-
 #game screen
-turtle.setup(400, 300)
+turtle.setup(800, 600)
 #background color
 turtle.bgcolor("black")
 
@@ -29,6 +22,16 @@ paddle2.shapesize(stretch_wid=5, stretch_len=1)
 paddle2.penup()
 paddle2.goto(350, 0)
 paddle2.dy = 0
+
+#ball
+ball = turtle.Turtle()
+ball.speed(0)
+ball.shape("circle")
+ball.color("White")
+ball.penup()
+ball.goto(0, 0)
+ball.dx = -0.05
+ball.dy = 0.05
 
 #game rules
 game_over = False
@@ -52,17 +55,17 @@ score_display.write("Player 1: 0 Player 2: 0", align="center", font=("Arial", 24
 
 #game mechanics
 paddle1.sety(paddle1.ycor() + paddle1.dy)
-    paddle2.sety(paddle2.ycor() + paddle2.dy)
-    ball.setx(ball.xcor() + ball.dx)
-    ball.sety(ball.ycor() + ball.dy)
+paddle2.sety(paddle2.ycor() + paddle2.dy)
+ball.setx(ball.xcor() + ball.dx)
+ball.sety(ball.ycor() + ball.dy)
 
     # Check for game over conditions
-    if points["player1"] == game_rules["max_points"]:
-        game_over = True
-        winner = "player1"
-    elif points["player2"] == game_rules["max_points"]:
-        game_over = True
-        winner = "player2"
+if points["player1"] == game_rules["max_points"]:
+    game_over = True
+    winner = "player1"
+elif points["player2"] == game_rules["max_points"]:
+    game_over = True
+    winner = "player2"
 
     # Check for ball collision with paddles
     if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle2.ycor() + 50 and ball.ycor() > paddle2.ycor() - 50):
